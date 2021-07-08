@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "GameBoard.hpp"
+
 using namespace std;
 
 int main()
@@ -18,6 +20,8 @@ int main()
 
     this project is my second attempt and I am working from the ground up
     */
+
+    GameBoard board;
 
     char pchar1;
     char pchar2;
@@ -55,18 +59,7 @@ int main()
 
     static char _pchars[2]{pchar1, pchar2};
 
-    // these will become inputs later
-    static char board[3][3];
     int cells = 3, turn = 0;
-
-    // init the board
-    for (int y = 0; y < cells; y++)
-    {
-        for (int x = 0; x < cells; x++)
-        {
-            board[y][x] = ' ';
-        }
-    }
 
     // start looping for the game
     bool gameOver = false;
@@ -75,50 +68,43 @@ int main()
     cout << "~~ GAME BEGINS ~~\n";
     while (!gameOver)
     {
-        cout << "\n\n\n\n";
-        // == X INDEX ==
-        cout
-            << " |";
-        for (int i = 0; i < cells; i++)
-        {
-            cout << ' ' << i + 1 << " |";
-        }
-        // end of row
-        cout << endl
-             << "--";
-
-        for (int i = 0; i < cells; i++)
-        {
-            cout << "----";
-        }
-        cout << endl;
-
-        for (int y = 0; y < cells; y++)
-        {
-            // == Y INDEX ==
-            cout << y + 1 << '|';
-            for (int x = 0; x < cells; x++)
-            {
-                // == CELL ==
-                cout << ' ' << board[y][x] << " |";
-            }
-            // end of row
-            cout << endl
-                 << "--";
-            for (int i = 0; i < cells; i++)
-            {
-                cout << "----";
-            }
-            cout << endl;
-        }
+        board.drawBoard();
 
         //check if someone won
-        for (int y = 0; y < cells; y++)
+        /*for (int y = 0; y < cells; y++)
         {
-        }
+            char checkChars[cells];
+            //horizontal
+            for (int x = 0; x < cells; x++)
+            {
+                checkChars[x] = board[y][x];
+            }
+
+            // without access to high level stuff like .length() I've decided to use the cells
+            // variable, since it will be the int I need anyway
+
+            // previous character
+            char prevchar = checkChars[0];
+
+            // victory count
+            int victCount = 0;
+
+            for (int i = 0; i < cells; i++)
+            {
+                if (checkChars[i + 1] == prevchar)
+                {
+                    victCount++;
+                }
+            }
+
+            if (victCount >= 3)
+            {
+                cout << "\n\n\nVICTORY\n\n\n";
+            }
+        }*/
 
         //get player moves
-        bool playerInput = false;
+        /*bool playerInput = false;
         while (playerInput == false)
         {
             cout << "Player " << turn + 1 << " X co-ordinate: ";
@@ -135,7 +121,7 @@ int main()
                 board[_y - 1][_x - 1] = _pchars[turn];
                 playerInput = true;
             }
-        }
+        }*/
 
         //swap turn
         if (turn == 0)
@@ -146,6 +132,9 @@ int main()
         {
             turn = 0;
         }
+
+        char wait;
+        cin >> wait; // jank, I know
     }
     return 0;
 }
