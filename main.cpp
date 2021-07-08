@@ -23,10 +23,35 @@ int main()
     char pchar2;
     cout << "~~~ Tic Tac Toe ~~~\n";
 
-    cout << "Player 1 character: ";
-    cin >> pchar1;
-    cout << "Player 2 character: ";
-    cin >> pchar2;
+    bool getPlayer1Char = false, getPlayer2Char = false;
+
+    while (getPlayer1Char == false)
+    {
+        cout << "Player 1 character: ";
+        cin >> pchar1;
+        if (pchar1 != ' ')
+        {
+            getPlayer1Char = true;
+        }
+        else
+        {
+            cout << "Character cannot be whitespace, try again\n";
+        }
+    }
+
+    while (getPlayer2Char == false)
+    {
+        cout << "Player 2 character: ";
+        cin >> pchar2;
+        if (pchar2 != ' ')
+        {
+            getPlayer2Char = true;
+        }
+        else
+        {
+            cout << "Character cannot be whitespace, try again\n";
+        }
+    }
 
     static char _pchars[2]{pchar1, pchar2};
 
@@ -50,8 +75,10 @@ int main()
     cout << "~~ GAME BEGINS ~~\n";
     while (!gameOver)
     {
+        cout << "\n\n\n\n";
         // == X INDEX ==
-        cout << " |";
+        cout
+            << " |";
         for (int i = 0; i < cells; i++)
         {
             cout << ' ' << i + 1 << " |";
@@ -85,13 +112,30 @@ int main()
             cout << endl;
         }
 
-        // change the cell by input
-        cout << "Player " << turn + 1 << " X co-ordinate: ";
-        cin >> _x;
-        cout << "Player " << turn + 1 << " Y co-ordinate: ";
-        cin >> _y;
+        //check if someone won
+        for (int y = 0; y < cells; y++)
+        {
+        }
 
-        board[_y - 1][_x - 1] = _pchars[turn];
+        //get player moves
+        bool playerInput = false;
+        while (playerInput == false)
+        {
+            cout << "Player " << turn + 1 << " X co-ordinate: ";
+            cin >> _x;
+            cout << "Player " << turn + 1 << " Y co-ordinate: ";
+            cin >> _y;
+
+            if (board[_y - 1][_x - 1] != ' ')
+            {
+                cout << "That cell is either occupied or not available, try again\n";
+            }
+            else
+            {
+                board[_y - 1][_x - 1] = _pchars[turn];
+                playerInput = true;
+            }
+        }
 
         //swap turn
         if (turn == 0)
@@ -109,6 +153,7 @@ int main()
 /*
     TODO:
         win condition
+        prevent cell overwrites
         reformat
         more than 2 players
         player names
