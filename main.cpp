@@ -7,20 +7,6 @@ using namespace std;
 
 int main()
 {
-    /*
-    previously I tried to recreate the program at its first appearance
-    however this proved a bit too hard
-    
-    instead I am going to try to create a more linear game with a
-    3x3 grid and 2 players, and then work to expand upon that until
-    it is a complete recreation
-
-    issues I ran into were getting multiple values to return from a function,
-    and trying to pass a 2D array to a function
-
-    this project is my second attempt and I am working from the ground up
-    */
-
     GameBoard board;
 
     char pchar1;
@@ -107,12 +93,14 @@ int main()
 
 /*
     TODO:
-        win condition
-        more than 2 players
-        player names
+        >more than 2 players
+        >player names (if I care enough)
+        >scale the board based on player input (new branch)
 
     BUGS:
-        Input in X or Y co-ordinate that is not
+        >Input in X or Y co-ordinate that is not
         an integer will cause a crash
+        >players can both pick the same symbol,
+        which causes problems with GameBoard.checkVictory()
 
 */
