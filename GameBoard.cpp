@@ -142,7 +142,7 @@ bool GameBoard::checkVictory()
     for (int i = 0; i < cells; i++)
     {
         // check one row
-        if (board[i][0] != ' ')
+        if (board[i][0] != ' ') // make sure you're not giving a victory to 3 whitespaces
         {
             if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
             {
@@ -166,6 +166,35 @@ bool GameBoard::checkVictory()
         }
     }
 
+    // check diagonals
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2])
+    {
+        return true;
+    }
+
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0])
+    {
+        return true;
+    }
+
     // no rows or columns found yet
     return false;
+
+    /*
+
+    So how will this work for a scalable board? I have an idea
+
+    > player puts down their piece
+    > scan the surrounding squares (if player places a 
+    piece on 0, 0 look at -1 -1, then -1 0, etc)
+    > if you find a piece that matches 0:0, first check the
+    opposite square (if found on -1,0 then look at +1,0)
+    > if opposite square is clear, check further ahead
+    (if found on -1,0, look at -2,0)
+
+    this was what I was expecting to see rather than the brute force method
+    that Ben implements in his tutorial, though I respect that he
+    makes them for begginning learners and I'm primarily learning
+    C++ syntax and low level concepts
+    */
 }
