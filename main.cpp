@@ -66,64 +66,33 @@ int main()
     int _x, _y;
 
     cout << "~~ GAME BEGINS ~~\n";
+
+    board.drawBoard();
     while (!gameOver)
     {
+        // passing the character based on turn
+        board.getMoves(_pchars[turn]);
+
         board.drawBoard();
 
-        //check if someone won
-        /*for (int y = 0; y < cells; y++)
+        // check for a victory
+        if (board.checkVictory())
         {
-            char checkChars[cells];
-            //horizontal
-            for (int x = 0; x < cells; x++)
+
+            cout << "Player " << turn + 1 << " has won! Would you like to go again? Y/N: ";
+            char goAgain = ' ';
+            cin >> goAgain;
+            if (goAgain == 'N')
             {
-                checkChars[x] = board[y][x];
-            }
-
-            // without access to high level stuff like .length() I've decided to use the cells
-            // variable, since it will be the int I need anyway
-
-            // previous character
-            char prevchar = checkChars[0];
-
-            // victory count
-            int victCount = 0;
-
-            for (int i = 0; i < cells; i++)
-            {
-                if (checkChars[i + 1] == prevchar)
-                {
-                    victCount++;
-                }
-            }
-
-            if (victCount >= 3)
-            {
-                cout << "\n\n\nVICTORY\n\n\n";
-            }
-        }*/
-
-        //get player moves
-        /*bool playerInput = false;
-        while (playerInput == false)
-        {
-            cout << "Player " << turn + 1 << " X co-ordinate: ";
-            cin >> _x;
-            cout << "Player " << turn + 1 << " Y co-ordinate: ";
-            cin >> _y;
-
-            if (board[_y - 1][_x - 1] != ' ')
-            {
-                cout << "That cell is either occupied or not available, try again\n";
+                gameOver = true;
             }
             else
             {
-                board[_y - 1][_x - 1] = _pchars[turn];
-                playerInput = true;
+                board.clearBoard();
+                board.drawBoard();
             }
-        }*/
+        }
 
-        //swap turn
         if (turn == 0)
         {
             turn = 1;
@@ -132,9 +101,6 @@ int main()
         {
             turn = 0;
         }
-
-        char wait;
-        cin >> wait; // jank, I know
     }
     return 0;
 }
@@ -142,11 +108,11 @@ int main()
 /*
     TODO:
         win condition
-        prevent cell overwrites
-        reformat
         more than 2 players
         player names
-        watch the rest of the video lol
-    
-    for the love of god, I will get this to perform exactly the same as the one at the start
+
+    BUGS:
+        Input in X or Y co-ordinate that is not
+        an integer will cause a crash
+
 */

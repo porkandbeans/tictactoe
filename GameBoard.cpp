@@ -5,7 +5,12 @@ using namespace std;
 
 GameBoard::GameBoard()
 {
-    int cells = 3; // each board is always a cells x cells grid
+    clearBoard();
+}
+
+void GameBoard::clearBoard()
+{
+    // each board is always a cells x cells grid
     // for now, board is a 2D array with 3 x 3 cells so cells must comply
 
     for (int y = 0; y < cells; y++)
@@ -76,6 +81,91 @@ void GameBoard::drawBoard()
     }
 }
 
-void GameBoard::clearBoard()
+int getXcoord();
+int getYcoord();
+
+void GameBoard::getMoves(char p1)
 {
+    char _p1 = p1;
+
+    bool isDone = false;
+
+    int x, y;
+    while (isDone == false)
+    {
+        // subtract 1 so X and Y inputs line up
+        // with the printed board
+        cout << "Player " << p1 << " enter X co-ordinate: ";
+        x = getXcoord() - 1;
+        cout << "Player " << p1 << " enter X co-ordinate: ";
+        y = getYcoord() - 1;
+
+        if (placeMarker(x, y, p1))
+        {
+            isDone = true;
+        }
+        else
+        {
+            cout << "Either that cell is taken, or the co-ordinate is out of bounds. Please try again.\n";
+        }
+    }
+}
+
+int getXcoord()
+{
+    int x;
+    cin >> x;
+    return x;
+}
+
+int getYcoord()
+{
+    int y;
+    cin >> y;
+    return y;
+}
+
+bool GameBoard::placeMarker(int x, int y, char p)
+{
+    if (board[y][x] != ' ')
+    {
+        return false;
+    }
+
+    board[y][x] = p;
+    return true;
+}
+
+bool GameBoard::checkVictory()
+{
+    // loop through rows
+    for (int i = 0; i < cells; i++)
+    {
+        // check one row
+        if (board[i][0] != ' ')
+        {
+            if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
+            {
+
+                return true;
+            }
+        }
+    }
+
+    // loop through columns
+    for (int i = 0; i < cells; i++)
+    {
+        // check one column
+        if (board[0][i] != ' ')
+        {
+            if (board[0][i] == board[1][i] && board[1][i] == board[2][i])
+            {
+
+                return true;
+            }
+        }
+    }
+
+    // no rows or columns found yet
+    return false;
 }
