@@ -98,7 +98,7 @@ void GameBoard::getMoves(char p1)
         cout << "Player " << p1 << " enter X co-ordinate: ";
         x = getXcoord() - 1;
         cout << "Player " << p1 << " enter X co-ordinate: ";
-        y = getYcoord() - 1;
+        y = getXcoord() - 1;
 
         if (placeMarker(x, y, p1))
         {
@@ -114,15 +114,16 @@ void GameBoard::getMoves(char p1)
 int getXcoord()
 {
     int x;
-    cin >> x;
-    return x;
-}
-
-int getYcoord()
-{
-    int y;
-    cin >> y;
-    return y;
+    while (true){
+        if(!(cin >> x)){
+            cout << "Please only input numeric values! Try again.\n";
+            cin.clear();
+            cin.ignore(10000,'\n');
+            cin >> x;
+        }else{
+            return x;
+        }
+    }
 }
 
 bool GameBoard::placeMarker(int x, int y, char p)

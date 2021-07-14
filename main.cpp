@@ -1,46 +1,27 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 
 #include "GameBoard.hpp"
 
 using namespace std;
 
+char getPlayerChar();
+
 int main()
 {
     GameBoard board;
-
-    char pchar1;
-    char pchar2;
     cout << "~~~ Tic Tac Toe ~~~\n";
 
-    bool getPlayer1Char = false, getPlayer2Char = false;
+    cout << "~~ PLAYER ONE ~~\n";
+    char pchar1 = getPlayerChar();
+    cout << "~~ PLAYER TWO ~~\n";
+    char pchar2 = getPlayerChar();
 
-    while (getPlayer1Char == false)
+    while (pchar2 == pchar1)
     {
-        cout << "Player 1 character: ";
-        cin >> pchar1;
-        if (pchar1 != ' ')
-        {
-            getPlayer1Char = true;
-        }
-        else
-        {
-            cout << "Character cannot be whitespace, try again\n";
-        }
-    }
-
-    while (getPlayer2Char == false)
-    {
-        cout << "Player 2 character: ";
-        cin >> pchar2;
-        if (pchar2 != ' ')
-        {
-            getPlayer2Char = true;
-        }
-        else
-        {
-            cout << "Character cannot be whitespace, try again\n";
-        }
+        cout << "Sorry player two, you can't pick the same character as player 1. Try again.\n";
+        pchar2 = getPlayerChar();
     }
 
     static char _pchars[2]{pchar1, pchar2};
@@ -90,17 +71,38 @@ int main()
     }
     return 0;
 }
+// === END OF INT.MAIN ==
+
+/*  getPlayerChar() -
+    Gets first character from input and returns it */
+char getPlayerChar()
+{
+    string pstring;
+    bool getPlayerChar = false;
+    while (getPlayerChar == false)
+    {
+        cout << "Player character: ";
+        getline(cin, pstring);
+
+        if(pstring.length() != 1){
+            cout << "Please input only one character.\n";
+        }else{
+            getPlayerChar = true;
+        }
+    }
+
+    char returnme = pstring[0];
+    return returnme;
+}
 
 /*
     TODO:
         >more than 2 players
         >player names (if I care enough)
         >scale the board based on player input (new branch)
+        >tie game when full board
 
     BUGS:
-        >Input in X or Y co-ordinate that is not
-        an integer will cause a crash
-        >players can both pick the same symbol,
-        which causes problems with GameBoard.checkVictory()
+        >int inputs for X and Y are still a little buggy, but better
 
 */
